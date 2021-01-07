@@ -37,7 +37,7 @@ jobs:
 
     name: eks-e2e-test
     runs-on: ${{ matrix.os }}}
-
+    steps:
       - name: set up go 1.15
         uses: actions/setup-go@v1
         with:
@@ -99,5 +99,5 @@ jobs:
       - name: run release builder
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
-          
+
         run: echo $TAG
