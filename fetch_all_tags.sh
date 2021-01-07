@@ -17,7 +17,7 @@ for tag in $tags; do
     git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
     git merge $tag
     git tag tetrate-test-$tag
-    git push orgin tetrate-release-$branch --tags
+    git push origin tetrate-release-$branch --tags
 done
 
 git push --tags origin
