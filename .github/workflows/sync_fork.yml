@@ -12,6 +12,11 @@ jobs:
     name: Sync the tags
 
     steps:
+    - name: Checkout master
+      uses: actions/checkout@v1
+      with:
+        ref: hellozee
+
     - name: Sync the tags
       run: |
         bash ./fetch_all_tags.sh
