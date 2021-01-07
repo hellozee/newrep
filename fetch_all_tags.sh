@@ -13,10 +13,13 @@ cat f2
 tags=$(comm -13 f1 f2)
 rm f1 f2
 
+git config user.name github-actions
+git config user.email github-actions@github.com
+
 for tag in $tags; do
     branch=$( echo $tag | rev | cut -d. -f2- | rev )
     git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
-    git merge $tag
+    git merge $tag --no-edit
     git tag tetrate-test-$tag
     git push origin tetrate-release-$branch --tags
 done

@@ -1,31 +1,28 @@
 #!/bin/bash
 
-UPSTREAM_REPO="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/istio/istio.git"
-BRANCHES=$(git branch -r | grep -E "release-[0-9]+.[0-9]+$" | cut -d "/" -f 2 )
+git remote add upstream https://github.com/istio/istio
+git fetch --tags origin
+git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f1
+git fetch --tags upstream
+git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f2
 
-[[ ! $(git config remote.upstream.url) ]] && git remote add upstream $UPSTREAM_REPO
+echo "print f1"
+cat f1
+echo "print f2"
+cat f2
 
-echo $BRANCHES
+tags=$(comm -13 f1 f2)
+rm f1 f2
 
-for branch in $BRANCHES; do
-    git checkout $branch
-    git fetch upstream $branch
-    git merge upstream/$branch
-    git push origin $branch --tags
-    echo "Updated $branch"
+git config user.name github-actions
+git config user.email github-actions@github.com
+
+for tag in $tags; do
+    branch=$( echo $tag | rev | cut -d. -f2- | rev )
+    git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
+    git merge $tag --no-edit
+    git tag tetrate-test-$tag
+    git push origin tetrate-release-$branch --tags
 done
 
-for branch in $BRANCHES; do
-    echo "Update tetrate-$branch"
-    # create if not exists
-    if [[ ! $(git rev-parse --verify --quiet tetrate-$branch) ]]; then
-        git checkout $branch
-        git checkout -b tetrate-$branch 
-        git merge hellozee --allow-unrelated-histories --no-edit
-        git push origin tetrate-$branch --tags
-    else
-        git checkout tetrate-$branch
-        git merge $branch
-        git push origin tetrate-$branch --tags
-    fi
-done
+git push --tags origin
