@@ -26,9 +26,10 @@ jobs:
         id: extract_tag
 
       - name: build and push images
-        run: echo $TAG
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
+        run: |
+          echo $TAG
 
   eks-e2e-test:
     strategy:
@@ -36,7 +37,7 @@ jobs:
         os: [ ubuntu-latest ]
 
     name: eks-e2e-test
-    runs-on: ${{ matrix.os }}}
+    runs-on: ${{ matrix.os }}
     steps:
       - name: set up go 1.15
         uses: actions/setup-go@v1
@@ -49,9 +50,10 @@ jobs:
         id: extract_tag
 
       - name: eks-cluster-create
-        run: echo $TAG
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
+        run: |
+          echo $TAG
   
   create-new-tag:
     name: create-new-tag
