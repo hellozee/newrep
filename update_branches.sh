@@ -20,12 +20,12 @@ for branch in $BRANCHES; do
     # create if not exists
     if [[ ! $(git rev-parse --verify --quiet tetrate-$branch) ]]; then
         git checkout $branch
-        git checkout -b tetrate-$branch
-        git merge hellozee
+        git checkout -b tetrate-$branch 
+        git merge hellozee --allow-unrelated-histories --no-edit
         git push origin tetrate-$branch --tags
     else
         git checkout tetrate-$branch
-        git merge hellozee
+        git merge hellozee --allow-unrelated-histories --no-edit
         git merge $branch
         git push origin tetrate-$branch --tags
     fi
