@@ -6,8 +6,6 @@ on:
       - 'tetrate-test-*'
 
 jobs:
-  env:
-    HUB: hellozee-docker-istio-test.bintray.io
 
   create-test-images:
     strategy:
@@ -15,6 +13,8 @@ jobs:
         os: [ ubuntu-latest ]
     name: create-test-images
     runs-on: ${{ matrix.os }}
+    env:
+      HUB: hellozee-docker-istio-test.bintray.io
 
     steps:
       - name: checkout
