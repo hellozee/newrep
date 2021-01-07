@@ -1,4 +1,5 @@
 #!/bin/bash
+git fetch --tags origin
 git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f1
 git fetch --tags upstream
 git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f2
