@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout base
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
       with:
         ref: main
 
@@ -27,7 +27,7 @@ jobs:
         git_pull_args: --rebase --tags
 
     - name: Checkout master
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
       with:
         ref: hellozee
 
