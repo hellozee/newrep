@@ -28,7 +28,7 @@ jobs:
       - name: build and push images
         run: echo $TAG
         env:
-          TAG: {{ steps.extract_tag.output.tag }}
+          TAG: ${{ steps.extract_tag.output.tag }}
 
   eks-e2e-test:
     strategy:
@@ -51,7 +51,7 @@ jobs:
       - name: eks-cluster-create
         run: echo $TAG
         env:
-          TAG: {{ steps.extract_tag.output.tag }}
+          TAG: ${{ steps.extract_tag.output.tag }}
   
   create-new-tag:
     name: create-new-tag
