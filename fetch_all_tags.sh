@@ -5,9 +5,6 @@ git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f1
 git fetch --tags upstream
 git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f2
 
-git config --global user.name "github-actions[bot]"
-git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
 echo "print f1"
 cat f1
 echo "print f2"

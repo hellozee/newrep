@@ -13,9 +13,10 @@ jobs:
 
     steps:
     - name: Checkout master
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         ref: hellozee
+        token: ${{ secrets.PAT }}
 
     - name: Sync the tags
       run: |
