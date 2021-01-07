@@ -14,7 +14,7 @@ rm f1 f2
 
 for tag in $tags; do
     branch=$( echo $tag | rev | cut -d. -f2- | rev )
-    git checkout tetrate-release-$branch
+    git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
     git merge $tag
     git tag tetrate-test-$tag
     git push orgin tetrate-release-$branch --tags
