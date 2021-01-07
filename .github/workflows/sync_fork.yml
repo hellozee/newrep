@@ -12,25 +12,6 @@ jobs:
     name: Sync the tags
 
     steps:
-    - name: Checkout base
-      uses: actions/checkout@v1
-      with:
-        ref: main
-
-    - name: Pull upstream changes
-      id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v2.1
-      with:
-        upstream_repository: beepitybop/newrep
-        upstream_branch: main
-        target_branch: main
-        git_pull_args: --rebase --tags
-
-    - name: Checkout master
-      uses: actions/checkout@v1
-      with:
-        ref: hellozee
-
     - name: Sync the tags
       run: |
         bash ./fetch_all_tags.sh
