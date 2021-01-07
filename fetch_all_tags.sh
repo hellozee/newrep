@@ -3,6 +3,11 @@ git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f1
 git fetch --tags upstream
 git tag -l | grep -E "^[0-9]+.[0-9]+.[0-9]+$" > f2
 
+echo "print f1"
+cat f1
+echo "print f2"
+cat f2
+
 tags=$(comm -13 f1 f2)
 rm f1 f2
 
