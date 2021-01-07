@@ -25,7 +25,6 @@ for branch in $BRANCHES; do
         git push origin tetrate-$branch --tags
     else
         git checkout tetrate-$branch
-        git merge hellozee --allow-unrelated-histories --no-edit
         git merge $branch
         git push origin tetrate-$branch --tags
     fi
