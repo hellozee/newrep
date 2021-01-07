@@ -1,0 +1,15 @@
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  run_echo:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    name: run_echo
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - run: echo "$GITHUB_REF" 
