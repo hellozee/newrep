@@ -26,12 +26,12 @@ jobs:
           TAG=$(git describe --tags)
           echo $TAG
 
-  gke-e2e-test:
+  eks-e2e-test:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
 
-    name: gke-e2e-test
+    name: eks-e2e-test
     runs-on: ${{ matrix.os }}
     needs: [create-test-images]
     env:
