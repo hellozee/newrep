@@ -22,14 +22,14 @@ jobs:
 
       - name: Extract tag name
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
+        run: echo "::set-output name=tag::$(echo ${GITHUB_REF#refs/tags/})"
         id: extract_tag
 
       - name: build and push images
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
         run: |
-          echo $TAG
+          echo $GITHUB_REF
 
   eks-e2e-test:
     strategy:
@@ -39,6 +39,9 @@ jobs:
     name: eks-e2e-test
     runs-on: ${{ matrix.os }}
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
       - name: set up go 1.15
         uses: actions/setup-go@v1
         with:
