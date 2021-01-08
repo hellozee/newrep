@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - 'tetrate-test-*'
-      - '*-v[1-9]+$'
+      - '*-tetrate-v[1-9]+$'
 
 jobs:
 
