@@ -21,7 +21,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Extract tag name
-        shell: bash
         run: echo "::set-output name=tag::$(echo ${GITHUB_REF#refs/tags/})"
         id: extract_tag
 
@@ -29,7 +28,7 @@ jobs:
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
         run: |
-          echo $GITHUB_REF
+          echo ${{ steps.extract_tag.output.tag }}
 
   eks-e2e-test:
     strategy:
@@ -56,7 +55,7 @@ jobs:
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
         run: |
-          echo $TAG
+          echo ${{ steps.extract_tag.output.tag }}
   
   create-new-tag:
     name: create-new-tag
