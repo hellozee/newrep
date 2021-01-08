@@ -27,7 +27,7 @@ jobs:
           echo $TAG
 
   name: gke-e2e-test
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     needs: [create-test-images]
     env:
       HUB: hellozee-docker-istio-test.bintray.io
