@@ -3,8 +3,7 @@ name: e2e-tests
 on:
   push:
     tags:
-      - 'tetrate-test-*'
-      - '*-tetrate-v[1-9]+$'
+      - '*tetrate*'
 
 jobs:
 
