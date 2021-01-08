@@ -52,7 +52,7 @@ jobs:
     name: create-new-tag
     runs-on: ubuntu-latest
     needs: [eks-e2e-test]
-    if: ${{ !contains(github.ref, "tetrate-v") }}
+    if: ${{ !contains(github.ref, 'tetrate-v') }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
