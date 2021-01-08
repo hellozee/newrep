@@ -18,7 +18,11 @@ git config user.email github-actions@github.com
 
 for tag in $tags; do
     branch=$( echo $tag | rev | cut -d. -f2- | rev )
-    git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
+    if [[ ! $(git rev-parse --verify origin/tetrate-release-$branch) ]]; then
+        git checkout -b tetrate-release-$branch tetrate-workflow
+    else
+        git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
+    fi
     git merge $tag --no-edit
     git tag tetrate-test-$tag
     git push origin tetrate-release-$branch --tags
