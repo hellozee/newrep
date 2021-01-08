@@ -91,3 +91,24 @@ jobs:
         run: |
           TAG=$(git describe --tags)
           echo $TAG
+
+    make_release_for_patch:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    
+    needs: [eks-e2e-test]
+    if: ${{ contains(github.ref, 'tetrate-v') }}
+
+    name: release-builder-run
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout tetrate branch
+        uses: actions/checkout@v2
+
+      - name: run release builder
+
+        run: |
+          TAG=$(git describe --tags)
+          echo $TAG
