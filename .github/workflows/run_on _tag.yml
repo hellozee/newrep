@@ -26,27 +26,33 @@ jobs:
           TAG=$(git describe --tags)
           echo $TAG
 
-  eks-e2e-test:
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-
-    name: eks-e2e-test
+  name: gke-e2e-test
     runs-on: ${{ matrix.os }}
     needs: [create-test-images]
+    env:
+      HUB: hellozee-docker-istio-test.bintray.io
+
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
 
       - name: set up go 1.15
         uses: actions/setup-go@v1
         with:
           go-version: 1.15
 
-      - name: eks-cluster-create
-        run: |
-          TAG=$(git describe --tags)
-          echo $TAG
+      - name: gke-cluster-create
+        run: bash ./create_gke_cluster.sh
+
+      - name: gke-cluster-delete
+        run: bash ./cleanup_gke_cluster.sh
   
   create-new-tag:
     name: create-new-tag
