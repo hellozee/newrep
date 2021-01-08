@@ -33,6 +33,7 @@ jobs:
 
     name: eks-e2e-test
     runs-on: ${{ matrix.os }}
+    needs: [create-test-images]
     steps:
       - name: checkout
         uses: actions/checkout@v2
