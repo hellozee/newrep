@@ -20,15 +20,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Extract tag name
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
-        id: extract_tag
-
       - name: build and push images
         env:
-          TAG: ${{ steps.extract_tag.output.tag }}
+          TAG: ${{ github.event.release.tag_name }}
         run: |
-          echo ${{ steps.extract_tag.output.tag }}
+          echo ${{ github.event.release.tag_name }}
 
   eks-e2e-test:
     strategy:
@@ -46,16 +42,11 @@ jobs:
         with:
           go-version: 1.15
 
-      - name: Extract tag name
-        shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
-        id: extract_tag
-
       - name: eks-cluster-create
         env:
-          TAG: ${{ steps.extract_tag.output.tag }}
+          TAG: ${{ github.event.release.tag_name }}
         run: |
-          echo ${{ steps.extract_tag.output.tag }}
+          echo $TAG
   
   create-new-tag:
     name: create-new-tag
