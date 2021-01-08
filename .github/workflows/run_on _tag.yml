@@ -92,7 +92,7 @@ jobs:
           TAG=$(git describe --tags)
           echo $TAG
 
-    make_release_for_patch:
+  make_release_for_patch:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
