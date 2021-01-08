@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'tetrate-test-*'
+      - '*-v[1-9]+$'
 
 jobs:
 
@@ -43,23 +44,18 @@ jobs:
           go-version: 1.15
 
       - name: eks-cluster-create
-        env:
-          TAG: ${{ github.event.release.tag_name }}
         run: |
+          TAG=$(git describe --tags)
           echo $TAG
   
   create-new-tag:
     name: create-new-tag
     runs-on: ubuntu-latest
     needs: [eks-e2e-test]
+    if: ${{ !contains(github.ref, "tetrate-v") }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Extract tag name
-        shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/tetrate-test-})"
-        id: extract_tag
 
       - name: Create Release
         id: create_release
@@ -67,7 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         with:
-          tag_name: ${{ steps.extract_tag.output.tag }}-tetrate-v0
+          tag_name: ${{ github.ref }}-tetrate-v0
           release_name: Tetrate Istio 
           draft: false
           prerelease: false
@@ -86,13 +82,10 @@ jobs:
       - name: Checkout tetrate branch
         uses: actions/checkout@v2
 
-      - name: Extract tag name
-        shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/tetrate-test-}-tetrate-v0)"
-        id: extract_tag
-
       - name: run release builder
         env:
           TAG: ${{ steps.extract_tag.output.tag }}
 
-        run: echo $TAG
+        run: |
+          TAG=$(git describe --tags)
+          echo $TAG
