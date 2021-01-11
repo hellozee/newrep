@@ -2,10 +2,6 @@ name: fail test
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: Bump Version
-        required: true
 
 env:
   TEST: yes
@@ -31,10 +27,10 @@ jobs:
 
   testing_2:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [6, 8, 10]
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.inputs.tag }}
-          fetch-depth: 0
-          
-      - run: echo ${{github.event.inputs.tag}}
+      - run: echo $TAG
+        env:
+          TAG: ${{ matrix.node }}
