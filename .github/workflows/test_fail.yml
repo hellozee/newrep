@@ -18,7 +18,7 @@ jobs:
   testing_again:
     env:
       TEST: this.is.it
-      
+    runs-on: ubuntu-latest
     steps:
       - run: echo $TEST
       - run: echo $TEXT
