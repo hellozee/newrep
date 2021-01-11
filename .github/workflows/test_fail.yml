@@ -1,14 +1,14 @@
 name: fail test
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+
+env:
+  TEST: yes
 
 jobs:
   testing_failure:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Yes"
-      - run: exit 2
-      - run : echo "Miss"
-      - if: always()
-        run: echo "No"
+      - run: echo $TEST
+      - run: echo ${{ github.env.TEST }}
