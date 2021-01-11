@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.events.inputs.tag }}
+          ref: refs/tags/${{ github.events.inputs.tag }}
           fetch-depth: 0
-
+      - run: git checkout ${{github.event.inputs.tag}}
       - run: echo ${{github.event.inputs.tag}}
