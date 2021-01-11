@@ -5,7 +5,6 @@ on:
     inputs:
       tag:
         description: Bump Version
-        default: v1.0.0
         required: true
 
 env:
@@ -31,6 +30,7 @@ jobs:
           TEXT: ${{env.TEST}}
 
   testing_2:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
