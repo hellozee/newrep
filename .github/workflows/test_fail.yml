@@ -1,0 +1,14 @@
+name: fail test
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  testing_failure:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Yes"
+      - run: exit 2
+      - run : echo "Miss"
+      - if: always()
+        run: echo "No"
