@@ -14,3 +14,13 @@ jobs:
       - run: echo $TEXT
         env:
           TEXT: ${{env.TEST}}
+
+  testing_again:
+    env:
+      TEST: this.is.it
+      
+    steps:
+      - run: echo $TEST
+      - run: echo $TEXT
+        env:
+          TEXT: ${{env.TEST}}
