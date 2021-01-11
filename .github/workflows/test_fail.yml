@@ -34,6 +34,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ github.events.input.tag }}
+          ref: ${{ github.events.inputs.tag }}
 
-      - run: echo ${{github.event.input.tag}}
+      - run: echo ${{github.event.inputs.tag}}
