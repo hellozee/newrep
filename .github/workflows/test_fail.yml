@@ -2,6 +2,11 @@ name: fail test
 
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Bump Version
+        default: v1.0.0
+        required: true
 
 env:
   TEST: yes
@@ -24,3 +29,11 @@ jobs:
       - run: echo $TEXT
         env:
           TEXT: ${{env.TEST}}
+
+  testing_2:
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.events.input.tag }}
+
+      - run: echo ${{github.event.input.tag}}
