@@ -11,4 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo $TEST
-      - run: echo ${{ github.env.TEST }}
+      - run: echo $TEXT
+        env:
+          TEXT: ${{env.TEST}}
