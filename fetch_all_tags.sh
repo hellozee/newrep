@@ -19,8 +19,7 @@ git config user.email github-actions@github.com
 for tag in $tags; do
     branch=$( echo $tag | rev | cut -d. -f2- | rev )
     if [[ ! $(git rev-parse --verify --quiet origin/tetrate-release-$branch) ]]; then
-        git checkout tetrate-workflow
-        git checkout -b tetrate-release-$branch 
+        git checkout -b tetrate-release-$branch origin/tetrate-workflow
     else
         git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
     fi
