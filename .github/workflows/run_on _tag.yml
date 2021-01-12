@@ -22,7 +22,7 @@ jobs:
 
       - name: Extract tag name
         shell: bash
-        run: echo "##[set-output name=tag;]$(echo ${GITHUB_REF#refs/tags/})"
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\/}
         id: extract_tag
 
       - name: build and push images
