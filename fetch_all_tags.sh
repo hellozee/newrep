@@ -23,7 +23,7 @@ for tag in $tags; do
     else
         git checkout -b tetrate-release-$branch origin/tetrate-release-$branch
     fi
-    git merge $tag --no-edit --allow-unrelated-histories
+    git rebase $tag
     git tag tetrate-test-$tag
     git push origin tetrate-release-$branch --tags
 done
